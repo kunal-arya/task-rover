@@ -4,7 +4,6 @@ import Form from "./form";
 import { FormDelete } from "./form-delete";
 
 const OrganizationIdPage = async () => {
-
     const boards = await db.board.findMany();
 
     return (
