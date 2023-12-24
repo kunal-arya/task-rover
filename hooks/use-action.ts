@@ -16,11 +16,11 @@ export const useAction = <TInput, TOutput>(
   action: Action<TInput, TOutput>,
   options: UseActionOptions<TOutput> = {}
 ) => {
-  const [fieldErrors, setFieldErrors] = useState<FieldErrors<TInput> | null>(
-    null
-  );
-  const [error, setError] = useState<string | null>(null);
-  const [data, setData] = useState<TOutput | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<
+    FieldErrors<TInput> | undefined
+  >(undefined);
+  const [error, setError] = useState<string | undefined>(undefined);
+  const [data, setData] = useState<TOutput | undefined>(undefined);
   const [isLoading, setLoading] = useState(false);
 
   const execute = useCallback(
@@ -45,6 +45,8 @@ export const useAction = <TInput, TOutput>(
 
         if (result.data) {
           setData(result.data);
+          setFieldErrors(undefined);
+          setError(undefined);
           options?.onSuccess?.(result.data);
         }
       } finally {
