@@ -6,15 +6,15 @@ import {
     PopoverContent,
     PopoverTrigger
 } from "@/components/ui/popover";
+import { X } from "lucide-react";
+import { toast } from "sonner";
 
 import { useAction } from "@/hooks/use-action";
-import { CreateBoard } from "@/actions/create-board/schema";
-
+import { createBoard } from "@/actions/create-board/index";
+import { Button } from "@/components/ui/button";
 import { FormInput } from "./form-input";
 import { FormSubmit } from "./form-submit";
-import { Button } from "@/components/ui/button";
-import { X } from "lucide-react";
-import { createBoard } from "@/actions/create-board/index";
+
 
 interface FormPopoverProps {
     children: React.ReactNode,
@@ -32,9 +32,11 @@ export const FormPopover = ({
     const { execute, fieldErrors } = useAction(createBoard, {
         onSuccess: (data) => {
             console.log({ data })
+            toast.success("Board created");
         },
         onError: (error) => {
             console.log(error);
+            toast.error(error);
         }
     })
 
