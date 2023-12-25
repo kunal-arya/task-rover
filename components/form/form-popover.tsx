@@ -14,6 +14,7 @@ import { createBoard } from "@/actions/create-board/index";
 import { Button } from "@/components/ui/button";
 import { FormInput } from "./form-input";
 import { FormSubmit } from "./form-submit";
+import { FormPicker } from "./form-picker";
 
 
 interface FormPopoverProps {
@@ -42,8 +43,10 @@ export const FormPopover = ({
 
     const onSubmit = (formData: FormData) => {
         const title = formData.get("title") as string;
+        const image = formData.get("image") as string;
 
-        execute({ title });
+        console.log({ image });
+        // execute({ title });
     }
 
     return (
@@ -70,6 +73,7 @@ export const FormPopover = ({
                 </PopoverClose>
                 <form className="space-y-4" action={onSubmit}>
                     <div className="space-y-4">
+                        <FormPicker id="image" errors={fieldErrors} />
                         <FormInput
                             id="title"
                             label="Board title"
