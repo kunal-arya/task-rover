@@ -91,7 +91,8 @@ export const FormPicker = ({
                             name={id}
                             className="hidden"
                             checked={selectedImageId === image.id} disabled={pending}
-                            value={`${image.id}|${image.urls.thumb}|${image.urls.full}|${image.links.html}|${image.user.name}`} />
+                            value={`${image.id}|${image.urls.thumb}|${image.urls.full}|${image.links.html}|${image.user.name}`}
+                        />
                         <Image
                             fill
                             alt="Unsplash image"
