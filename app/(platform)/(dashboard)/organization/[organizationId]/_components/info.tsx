@@ -23,6 +23,7 @@ export const Info = () => {
                     src={organization?.imageUrl!}
                     alt="Organization"
                     className="rounded-md object-cover"
+                    sizes="60px"
                 />
             </div>
             <div className="space-y-1">
