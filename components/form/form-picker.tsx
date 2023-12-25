@@ -85,6 +85,7 @@ export const FormPicker = ({
                         }}
                     >
                         <input
+                            readOnly
                             type="radio"
                             id={id}
                             name={id}
@@ -96,6 +97,7 @@ export const FormPicker = ({
                             alt="Unsplash image"
                             src={image.urls.thumb}
                             className="object-cover rounded-sm"
+                            sizes="90px"
                         />
                         {selectedImageId === image.id && (
                             <div className="absolute inset-y-0 h-full w-full bg-black/30 flex items-center justify-center">
