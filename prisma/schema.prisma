@@ -20,6 +20,40 @@ model Board {
   imageUserName String @db.Text
   imageLinkHTML String @db.Text
 
+  lists         List[] // only to create relations with List Model
+
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
+
+model List {
+  id            String @id @default(uuid())
+  title         String
+  order         Int
+  
+  BoardId       String
+  board         Board @relation(fields: [BoardId], references: [id], onDelete: Cascade) // creating a relation with List - BoardId and Board - id , instructing that if board gets deleted , delete the list too 
+
+  cards         Card[] // only to create relations with Card Model
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([BoardId])
+}
+
+model Card {
+  id            String @id @default(uuid())
+  title         String
+  order         Int
+  description   String? @db.Text
+
+  listId        String
+  list          List @relation(fields: [listId], references: [id], onDelete: Cascade)
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([listId])
+}
+
