@@ -38,7 +38,6 @@ export const ListForm = () => {
     })
 
     const enableEditing = () => {
-        console.log("clicked", isEditing);
         setEditing(true);
 
         // Using setTimeout to schedule the focus operation in the next event loop cycle

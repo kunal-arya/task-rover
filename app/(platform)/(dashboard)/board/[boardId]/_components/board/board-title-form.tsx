@@ -1,12 +1,13 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
 import { ElementRef, useRef, useState } from "react";
+import { toast } from "sonner";
+
+import { Button } from "@/components/ui/button"
 import { Board } from "@prisma/client"
 import { FormInput } from "@/components/form/form-input";
 import { updateBoard } from "@/actions/update-board";
 import { useAction } from "@/hooks/use-action";
-import { toast } from "sonner";
 
 type BoardTitleFormProps = {
     board: Board;

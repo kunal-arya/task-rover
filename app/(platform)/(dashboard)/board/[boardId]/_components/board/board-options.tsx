@@ -1,5 +1,8 @@
 "use client"
 
+import { MoreHorizontal, X } from "lucide-react";
+import { toast } from "sonner";
+
 import { deleteBoard } from "@/actions/delete-board";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,8 +12,7 @@ import {
     PopoverTrigger
 } from "@/components/ui/popover"
 import { useAction } from "@/hooks/use-action";
-import { MoreHorizontal, X } from "lucide-react";
-import { toast } from "sonner";
+
 
 
 type BoardOptionsProps = {
