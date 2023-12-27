@@ -25,7 +25,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     board = await db.board.delete({
       where: {
         id,
-        orgId, // we are preventing anyone from outside this org to update the board
+        orgId, // preventing anyone from outside this org to perform this action
       },
     });
   } catch (error) {

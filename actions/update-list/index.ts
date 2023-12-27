@@ -6,7 +6,7 @@ import { db } from "@/lib/db";
 import { InputType, ReturnType } from "./types";
 import { revalidatePath } from "next/cache";
 import { createSafeActions } from "@/lib/create-safe-action";
-import { Updateboard } from "./schema";
+import { UpdateList } from "./schema";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
   const { userId, orgId } = auth();
@@ -17,14 +17,17 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     };
   }
 
-  const { title, id } = data;
-  let board;
+  const { title, id, BoardId } = data;
+  let List;
 
   try {
-    board = await db.board.update({
+    List = await db.list.update({
       where: {
         id,
-        orgId, // preventing anyone from outside this org to perform this action
+        BoardId,
+        board: {
+          orgId, // preventing anyone from outside this org to perform this action
+        },
       },
       data: {
         title,
@@ -36,8 +39,8 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     };
   }
 
-  revalidatePath(`/board/${id}`);
-  return { data: board };
+  revalidatePath(`/board/${BoardId}`);
+  return { data: List };
 };
 
-export const updateBoard = createSafeActions(Updateboard, handler);
+export const updateList = createSafeActions(UpdateList, handler);
