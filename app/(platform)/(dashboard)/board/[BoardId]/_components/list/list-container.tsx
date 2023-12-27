@@ -7,11 +7,11 @@ import { ListItem } from "./list-item";
 
 type ListContainerProps = {
     lists: ListWithCards[],
-    boardId: string;
+    BoardId: string;
 }
 
 export const ListContainer = ({
-    lists, boardId
+    lists, BoardId
 }: ListContainerProps) => {
     const [orderedData, setOrderedData] = useState(lists);
 

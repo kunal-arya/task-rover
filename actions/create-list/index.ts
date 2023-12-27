@@ -18,11 +18,11 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     };
   }
 
-  const { title, boardId } = data;
+  const { title, BoardId } = data;
   let list;
 
   try {
-    const board = await getBoardWithOrgIdnId(boardId, orgId);
+    const board = await getBoardWithOrgIdnId(BoardId, orgId);
 
     if (!board) {
       return {
@@ -31,7 +31,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     }
 
     const lastList = await db.list.findFirst({
-      where: { BoardId: boardId },
+      where: { BoardId },
       orderBy: { order: "desc" },
       select: { order: true },
     });
@@ -41,7 +41,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     list = await db.list.create({
       data: {
         title,
-        BoardId: boardId,
+        BoardId: BoardId,
         order: newOrder,
       },
     });
@@ -51,7 +51,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     };
   }
 
-  revalidatePath(`/board/${boardId}`);
+  revalidatePath(`/board/${BoardId}`);
   return { data: list };
 };
 

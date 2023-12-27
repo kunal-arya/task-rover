@@ -62,9 +62,9 @@ export const ListForm = () => {
 
     const onSubmit = (formData: FormData) => {
         const title = formData.get("title") as string;
-        const boardId = formData.get("boardId") as string;
+        const BoardId = formData.get("BoardId") as string;
 
-        execute({ title, boardId });
+        execute({ title, BoardId });
     }
 
     if (isEditing) {
@@ -83,8 +83,8 @@ export const ListForm = () => {
                     />
                     <input
                         hidden
-                        defaultValue={params.boardId}
-                        name="boardId"
+                        defaultValue={params.BoardId}
+                        name="BoardId"
                     />
                     <div
                         className="flex items-center gap-x-1"

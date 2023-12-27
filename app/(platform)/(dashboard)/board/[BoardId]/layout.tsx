@@ -7,7 +7,7 @@ import { getBoardWithOrgIdnId } from "@/actions/get-board";
 
 export async function generateMetadata({
     params
-}: { params: { boardId: string } }) {
+}: { params: { BoardId: string } }) {
     const { orgId } = auth();
 
     if (!orgId) {
@@ -16,7 +16,7 @@ export async function generateMetadata({
         }
     }
 
-    const board = await getBoardWithOrgIdnId(params.boardId, orgId)
+    const board = await getBoardWithOrgIdnId(params.BoardId, orgId)
 
     return {
         title: board?.title || "Board"
@@ -25,7 +25,7 @@ export async function generateMetadata({
 
 const BoardIdLayout = async ({ children, params }: {
     children: React.ReactNode, params: {
-        boardId: string
+        BoardId: string
     }
 }) => {
     const { orgId } = auth();
@@ -34,7 +34,7 @@ const BoardIdLayout = async ({ children, params }: {
         redirect("/select-org");
     }
 
-    const board = await getBoardWithOrgIdnId(params.boardId, orgId);
+    const board = await getBoardWithOrgIdnId(params.BoardId, orgId);
 
     if (!board) {
         // Not Found page will trigger
