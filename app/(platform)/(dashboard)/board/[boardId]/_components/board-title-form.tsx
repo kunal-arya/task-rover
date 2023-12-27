@@ -32,6 +32,9 @@ export const BoardTitleForm = ({ board }: BoardTitleFormProps) => {
 
     const enableEditing = () => {
         setIsEditing(true);
+
+        // Using setTimeout to schedule the focus operation in the next event loop cycle
+        // This ensures that the focus operation is executed after the current synchronous code
         setTimeout(() => {
             inputRef.current?.focus();
             inputRef.current?.select();
