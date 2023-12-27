@@ -11,8 +11,7 @@ export const getBoardWithOrgIdnId = async (id: string, orgId: string) => {
       },
     });
   } catch (err) {
-    return {
-      error: err,
-    };
+    console.log({ err });
+    return null;
   }
 };
