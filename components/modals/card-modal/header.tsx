@@ -23,6 +23,9 @@ export const Header = ({ data }: HeaderProps) => {
 
     const { execute } = useAction(updateCard, {
         onSuccess: (data) => {
+            // we are invalidating query because we 
+            // want to clear the cache as we have 
+            // updated the title
             queryClient.invalidateQueries({
                 queryKey: ["card", data.id]
             })
