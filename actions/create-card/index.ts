@@ -1,13 +1,14 @@
 "use server";
-
+import { revalidatePath } from "next/cache";
+import { ACTION, ENTITY_TYPE } from "@prisma/client";
 import { auth } from "@clerk/nextjs";
+
 import { db } from "@/lib/db";
+import { createAuditLog } from "@/lib/create-audit-log";
+import { createSafeActions } from "@/lib/create-safe-action";
 
 import { InputType, ReturnType } from "./types";
-import { revalidatePath } from "next/cache";
-import { createSafeActions } from "@/lib/create-safe-action";
 import { CreateCard } from "./schema";
-import { getBoardWithOrgIdnId } from "../get-board";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
   const { userId, orgId } = auth();
@@ -40,18 +41,25 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     const lastCard = await db.card.findFirst({
       where: { listId },
       orderBy: { order: "desc" },
-      select: {order: true},
-    })
+      select: { order: true },
+    });
 
     const newOrder = lastCard ? lastCard.order + 1 : 1;
-    
+
     card = await db.card.create({
       data: {
         title,
         listId,
-        order: newOrder
-      }
-    })
+        order: newOrder,
+      },
+    });
+
+    await createAuditLog({
+      entityId: card.id,
+      entityTitle: card.title,
+      entityType: ENTITY_TYPE.CARD,
+      action: ACTION.CREATE,
+    });
   } catch (error) {
     return {
       error: "Failed to create.",
