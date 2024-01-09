@@ -7,7 +7,8 @@ import { Hint } from "@/components/hint"
 import { FormPopover } from "@/components/form/form-popover"
 import { Skeleton } from "@/components/ui/skeleton"
 import { db } from "@/lib/db"
-
+import { MAX_FREE_BOARDS } from "@/constants/boards"
+import { getAvailableCount } from "@/lib/org-limit"
 
 
 
@@ -27,7 +28,7 @@ const BoardList = async () => {
         }
     })
 
-
+    const availableCount = await getAvailableCount();
 
     return (
         <div className="space-y-4">
@@ -57,7 +58,7 @@ const BoardList = async () => {
                     >
                         <p className="tex-sm">Create new Board</p>
                         <span className="text-xs">
-                            5 remaining
+                            {`${MAX_FREE_BOARDS - availableCount} remaining`}
                         </span>
                         <Hint
                             sideOffset={40}
@@ -77,30 +78,12 @@ const BoardList = async () => {
 BoardList.Skeleton = function SkeletonBoardList() {
     return (
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-            <Skeleton
-                className="aspect-video h-full w-full p-2"
-            />
-            <Skeleton
-                className="aspect-video h-full w-full p-2"
-            />
-            <Skeleton
-                className="aspect-video h-full w-full p-2"
-            />
-            <Skeleton
-                className="aspect-video h-full w-full p-2"
-            />
-            <Skeleton
-                className="aspect-video h-full w-full p-2"
-            />
-            <Skeleton
-                className="aspect-video h-full w-full p-2"
-            />
-            <Skeleton
-                className="aspect-video h-full w-full p-2"
-            />
-            <Skeleton
-                className="aspect-video h-full w-full p-2"
-            />
+            {Array(8).fill(1).map((value, index) => (
+                <Skeleton
+                    key={value + index}
+                    className="aspect-video h-full w-full p-2"
+                />
+            ))}
         </div>
     )
 }
