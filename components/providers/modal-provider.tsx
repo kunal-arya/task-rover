@@ -1,7 +1,9 @@
 "use client";
 
-import { CardModal } from "@/components/modals/card-modal";
 import { useEffect, useState } from "react";
+
+import { CardModal } from "@/components/modals/card-modal";
+import { ProModal } from "@/components/modals/pro-modal";
 
 export const ModalProvider = () => {
     // We have done this to prevent hydration errors in NextJS
@@ -18,6 +20,7 @@ export const ModalProvider = () => {
     return (
         <>
             <CardModal />
+            <ProModal />
         </>
     )
 }
