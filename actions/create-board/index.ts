@@ -12,6 +12,7 @@ import { availableCount, hasAvailableCount } from "@/lib/org-limit";
 
 import { InputType, ReturnType } from "./types";
 import { CreateBoard } from "./schema";
+import { checkSubscription } from "@/lib/subscription";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
   const { userId, orgId } = auth();
@@ -23,8 +24,9 @@ const handler = async (data: InputType): Promise<ReturnType> => {
   }
 
   const canCreate = await hasAvailableCount();
+  const isPro = await checkSubscription();
 
-  if (!canCreate) {
+  if (!canCreate && !isPro) {
     return {
       error:
         "You have reached your limit of free boards, please upgrade to create more",
@@ -63,7 +65,10 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       },
     });
 
-    await availableCount("increase");
+    // If the user is not pro, we are increasing the maximum available Count, else not
+    if (!isPro) {
+      await availableCount("increase");
+    }
 
     await createAuditLog({
       entityTitle: board.title,
